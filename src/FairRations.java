@@ -31,7 +31,6 @@ class FairRationsResult {
 public class FairRations {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
         int N = Integer.parseInt(bufferedReader.readLine().trim());
 
@@ -40,11 +39,9 @@ public class FairRations {
                 .collect(toList());
 
         String result = FairRationsResult.fairRations(B);
-
-        bufferedWriter.write(result);
-        bufferedWriter.newLine();
+        System.out.println(result);
 
         bufferedReader.close();
-        bufferedWriter.close();
+
     }
 }
