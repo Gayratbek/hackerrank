@@ -10,15 +10,23 @@ public class FlatLandSpaceStations {
 
     // Complete the flatlandSpaceStations function below.
     static int flatlandSpaceStations(int n, int[] c) {
-        return 0;
+        Arrays.sort(c);
+
+        int first = Math.abs(0 - c[0]);
+        int last = Math.abs((n - 1) - c[c.length-1]);
+        int max = Math.max(first, last);
+        int maxSpace = 0;
+        for(int i = 0; i < c.length - 1; i++) {
+            maxSpace = Math.max(Math.abs(c[i] - c[i+1]), maxSpace);
+        }
+        max = Math.max(max, maxSpace / 2);
+        return max;
 
     }
 
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
-
         String[] nm = scanner.nextLine().split(" ");
 
         int n = Integer.parseInt(nm[0]);
@@ -36,11 +44,7 @@ public class FlatLandSpaceStations {
         }
 
         int result = flatlandSpaceStations(n, c);
-
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
-
-        bufferedWriter.close();
+        System.out.println(result);
 
         scanner.close();
     }
