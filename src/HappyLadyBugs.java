@@ -1,56 +1,53 @@
 import java.io.*;
-import java.util.stream.*;
-
-class HappyLadyBugsResult {
-
-    /*
-     * Complete the 'happyLadybugs' function below.
-     *
-     * The function is expected to return a STRING.
-     * The function accepts STRING b as parameter.
-     */
-
-    public static String happyLadybugs(String b) {
-        // Write your code here
-        String returnvlue = new String();
-
-        if (b.contains("_")) {
-//            for (int i = 0; i < b.length(); i++) {
-                returnvlue ="YES";
-//            }
-        }
-        else
-        {
-            returnvlue ="NO";
-
-        }
-
-        return returnvlue;
-
-    }
-
-}
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
 
 public class HappyLadyBugs {
-    public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-        int g = Integer.parseInt(bufferedReader.readLine().trim());
-
-        IntStream.range(0, g).forEach(gItr -> {
-            try {
-                int n = Integer.parseInt(bufferedReader.readLine().trim());
-
-                String b = bufferedReader.readLine();
-
-                String result = HappyLadyBugsResult.happyLadybugs(b);
-                System.out.println(result);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+    private static boolean isHappyAlready(char c[]){
+        int l=0,r=0;
+        for(int i=0;i<c.length;i++){
+            l=i-1;
+            r=i+1;
+            if(l>=0){
+                if(c[l]==c[i]) continue;
             }
-        });
+            if(r<c.length){
+                if(c[r]==c[i]) continue;
+            }
+            return false;
+        }
+        return true;
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int Q = in.nextInt();
+        String result="NO";
+        for(int a0 = 0; a0 < Q; a0++){
+            int n = in.nextInt();
+            char[] b = in.next().toCharArray();
 
-        bufferedReader.close();
+            char[] cs=new char[27];
+            char c=0;
+            for(int i=0;i<b.length;i++){
+                c=b[i];
+                if(c != '_')cs[c-'A']++;
+                else cs[26]++;
+            }
+            result="YES";
+            for(int i=0;i<26;i++){
+                if(cs[i]==1) {result="NO";break;}
+            }
+            if(result=="YES"){
 
+                if(cs[26]==0 && !isHappyAlready(b)){
+                    result="NO";
+                }
+            }
+            System.out.println(result);
+        }
+        //System.out.println(isHappyAlready("RRR".toCharArray()));
     }
 }
